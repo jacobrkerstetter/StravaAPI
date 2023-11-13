@@ -25,22 +25,9 @@ logger = None
 #####################################
 access_token = '616803c4b00ec2a5e3c48b52dedaf9f1853eb754'
 
-cardio_file = 'cardioActivities.csv'
-
-archive_dir = 'archive'
-skip_dir = 'skipped'
-
 # This list can be expanded
 # @see https://developers.strava.com/docs/uploads/#upload-an-activity
 # @see https://github.com/hozn/stravalib/blob/master/stravalib/model.py#L723
-activity_translations = {
-	'running': 'run',
-	'cycling': 'ride',
-	'mountain biking': 'ride',
-	'hiking': 'hike',
-	'walking': 'walk',
-	'swimming': 'swim'
-}
 
 def set_up_logger():
 	global logger
@@ -87,77 +74,6 @@ def get_strava_client():
 	client.access_token = token
 	return client
 
-# Function to convert the HH:MM:SS in the Runkeeper CSV to seconds
-def duration_calc(duration):
-	# Splits the duration on the :, so we wind up with a 3-part array
-	split_duration = str(duration).split(":")
-	# If the array only has 2 elements, we know the activity was less than an hour
-	if len(split_duration) == 2:
-		hours = 0
-		minutes = int(split_duration[0])
-		seconds = int(split_duration[1])
-	else:
-		hours = int(split_duration[0])
-		minutes = int(split_duration[1])
-		seconds = int(split_duration[2])
-
-	total_seconds = seconds + (minutes*60) + (hours*60*60)
-	return total_seconds
-
-# Translate RunKeeper's activity codes to Strava's
-def activity_translator(rk_type):
-	# Normalise to lower case
-	rk_type = rk_type.lower()
-
-	if rk_type not in activity_translations:
-		return None
-
-	return activity_translations[rk_type]
-
-def increment_activity_counter(counter):
-	counter += 1
-	return counter
-
-# designates part of day for name assignment, matching Strava convention for GPS activities
-def strava_day_converstion(hour_of_day):
-	if 3 <= hour_of_day <= 11:
-		return "Morning"
-	elif 12 <= hour_of_day <= 4:
-		return "Afternoon"
-	elif 5 <= hour_of_day <=7:
-		return "Evening"
-
-	return "Night"
-
-# Get a small range of time. Note runkeeper does not maintain timezone
-# in the CSV, so we must get about 12 hours earlier and later to account
-# for potential miss due to UTC
-def get_date_range(time, hourBuffer=12):
-	if type(time) is not datetime:
-		raise TypeError('time arg must be a datetime, not a %s' % type(time))
-
-
-	return {
-		'from': time + timedelta(hours = -1 * hourBuffer),
-		'to': time + timedelta(hours = hourBuffer),
-	}
-
-def activity_exists(client, activity_name, start_time):
-	date_range = get_date_range(start_time)
-
-	logger.debug("Getting existing activities from [" + date_range['from'].isoformat() + "] to [" + date_range['to'].isoformat() + "]")
-
-	activities = client.get_activities(
-		before = date_range['to'],
-		after = date_range['from']
-	)
-
-	for activity in activities:
-		if activity.name == activity_name:
-			return True
-
-	return False
-
 def miles_to_meters(miles):
 	return float(miles) * 1609.344
 
@@ -188,7 +104,7 @@ def main():
 	for i in range(2):
 		try:
 			athlete = client.get_athlete()
-		except exc.RateLimitExceeded as err:
+		except exc.LimitExceeded as err:
 			if i > 0:
 				logger.error("Daily Rate limit exceeded - exiting program")
 				exit(1)
@@ -199,11 +115,13 @@ def main():
 
 	logger.info("Now authenticated for " + athlete.firstname + " " + athlete.lastname)
 
-	activities = client.get_activities(limit=5)
-	for activity in activities:
-		if activity.sport_type == 'Run':
-			pace = m_per_s_to_min_per_mile(activity.average_speed)
-			print('{}: {}'.format(activity.name, pace))
+	timeLimit = datetime.strptime('13 November, 2023 16:00:00', '%d %B, %Y %H:%M:%S')
+	while True:
+		activities = client.get_activities(limit=5, after=timeLimit)
+		for activity in activities:
+			if activity.sport_type == 'Run':
+				pace = m_per_s_to_min_per_mile(activity.average_speed)
+				print('{}: {}'.format(activity.name, pace))
 
 if __name__ == '__main__':
 	main()
