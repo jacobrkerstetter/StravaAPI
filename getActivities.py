@@ -23,7 +23,7 @@ logger = None
 #   (a) set an environment variable `STRAVA_UPLOADER_TOKEN` or;
 #   (b) replace `None` below with the token in quote marks, e.g. access_token = 'token'
 #####################################
-access_token = '616803c4b00ec2a5e3c48b52dedaf9f1853eb754'
+access_token = '8de84fb7d52c32420106ff96843a187fa6e5e6f3'
 
 # This list can be expanded
 # @see https://developers.strava.com/docs/uploads/#upload-an-activity
@@ -101,10 +101,11 @@ def main():
 	client = get_strava_client()
 
 	logger.debug('Connecting to Strava')
+	client.get_athlete()
 	for i in range(2):
 		try:
 			athlete = client.get_athlete()
-		except exc.LimitExceeded as err:
+		except:
 			if i > 0:
 				logger.error("Daily Rate limit exceeded - exiting program")
 				exit(1)
@@ -115,13 +116,14 @@ def main():
 
 	logger.info("Now authenticated for " + athlete.firstname + " " + athlete.lastname)
 
-	timeLimit = datetime.strptime('13 November, 2023 16:00:00', '%d %B, %Y %H:%M:%S')
+	timeLimit = datetime.strptime('1 December, 2023 16:00:00', '%d %B, %Y %H:%M:%S')
 	while True:
-		activities = client.get_activities(limit=5, after=timeLimit)
+		activities = client.get_activities(after=timeLimit)
 		for activity in activities:
-			if activity.sport_type == 'Run':
+			if activity.type == 'Run':
 				pace = m_per_s_to_min_per_mile(activity.average_speed)
-				print('{}: {}'.format(activity.name, pace))
+				print('{}: {} - {}'.format(activity.name, pace, activity.type))
+		time.sleep(360)
 
 if __name__ == '__main__':
 	main()
