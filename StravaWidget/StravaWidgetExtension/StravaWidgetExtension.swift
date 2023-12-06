@@ -13,11 +13,15 @@ struct Provider: TimelineProvider {
     let data = ReadData()
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), userMileage: data.getMileage())
+        SimpleEntry(date: Date(),
+                    activityName: data.getName(),
+                    activityDistance: data.getDistance())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), userMileage: data.getMileage())
+        let entry = SimpleEntry(date: Date(),
+                                activityName: data.getName(),
+                                activityDistance: data.getDistance())
         completion(entry)
     }
 
@@ -28,7 +32,9 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: Date(), userMileage: data.getMileage())
+            let entry = SimpleEntry(date: Date(),
+                                    activityName: data.getName(),
+                                    activityDistance: data.getDistance())
             entries.append(entry)
         }
 
@@ -39,7 +45,8 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let userMileage: String
+    let activityName: String
+    let activityDistance: String
 }
 
 struct StravaWidgetExtensionEntryView : View {
@@ -47,11 +54,11 @@ struct StravaWidgetExtensionEntryView : View {
 
     var body: some View {
         VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
+            Text("Name:")
+            Text(entry.activityName)
 
-            Text("Mileage:")
-            Text(entry.userMileage)
+            Text("Distance:")
+            Text(entry.activityDistance)
         }
     }
 }
@@ -78,6 +85,5 @@ struct StravaWidgetExtension: Widget {
 #Preview(as: .systemSmall) {
     StravaWidgetExtension()
 } timeline: {
-    SimpleEntry(date: .now, userMileage: "4")
-    SimpleEntry(date: .now, userMileage: "1")
+    SimpleEntry(date: .now, activityName: "Test", activityDistance: "0.0")
 }

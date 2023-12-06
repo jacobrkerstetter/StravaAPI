@@ -8,21 +8,21 @@
 import Foundation
 import SwiftUI
 
-struct User: Codable, Identifiable {
+struct Activity: Codable, Identifiable {
     enum CodingKeys: CodingKey {
-        case mileage
-        case designation
-        case email
+        case name
+        case distance
+        case time
     }
     
     var id = UUID()
-    var mileage: String
-    var designation: String
-    var email: String
+    var name: String
+    var distance: String
+    var time: String
 }
 
 class ReadData: ObservableObject  {
-    @Published var users = [User]()
+    @Published var activities = [Activity]()
     
     init(){
         loadData()
@@ -36,11 +36,17 @@ class ReadData: ObservableObject  {
         }
         
         let data = try? Data(contentsOf: url)
-        let users = try? JSONDecoder().decode([User].self, from: data!)
-        self.users = users!
+        let activities = try? JSONDecoder().decode([Activity].self, from: data!)
+        self.activities = activities!
     }
     
-    func getMileage() -> String {
-        return self.users[0].mileage
+    func getName() -> String {
+        return self.activities[0].name
+    }
+    func getDistance() -> String {
+        return self.activities[0].distance
+    }
+    func getTime() -> String {
+        return self.activities[0].time
     }
 }
