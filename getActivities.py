@@ -10,6 +10,7 @@ import time
 from datetime import datetime, timedelta
 import logging
 import sys
+import json
 
 logger = None
 
@@ -23,7 +24,11 @@ logger = None
 #   (a) set an environment variable `STRAVA_UPLOADER_TOKEN` or;
 #   (b) replace `None` below with the token in quote marks, e.g. access_token = 'token'
 #####################################
-access_token = '8de84fb7d52c32420106ff96843a187fa6e5e6f3'
+access_token = 'c44a20b8636fab35651ee888c675f63435f9b260'
+activity_data = {
+	'activities' : [
+	]
+}
 
 # This list can be expanded
 # @see https://developers.strava.com/docs/uploads/#upload-an-activity
@@ -74,6 +79,19 @@ def get_strava_client():
 	client.access_token = token
 	return client
 
+def create_new_activity(activity):
+	new_activity = {
+		'name' : activity.name,
+		'distance' : str(activity.distance),
+		'time' : str(activity.elapsed_time)
+	}
+
+	activity_data['activities'].append(new_activity)
+
+def export_json():
+	with open(os.path.join('StravaWidget', 'StravaWidgetExtension', 'userdata.json'), 'w') as _f:
+		json.dump(activity_data, _f, indent=4)
+
 def miles_to_meters(miles):
 	return float(miles) * 1609.344
 
@@ -121,8 +139,10 @@ def main():
 		activities = client.get_activities(after=timeLimit)
 		for activity in activities:
 			if activity.type == 'Run':
-				pace = m_per_s_to_min_per_mile(activity.average_speed)
-				print('{}: {} - {}'.format(activity.name, pace, activity.type))
+				create_new_activity(activity)
+				#pace = m_per_s_to_min_per_mile(activity.average_speed)
+		
+		export_json()
 		time.sleep(360)
 
 if __name__ == '__main__':
