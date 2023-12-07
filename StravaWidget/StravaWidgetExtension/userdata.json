@@ -1,89 +1,42 @@
-{
-    "activities": [
-        {
-            "name": "legs haven\u2019t felt like this in ages",
-            "distance": "6827.5 meter",
-            "time": "0:31:32"
-        },
-        {
-            "name": "long + strides",
-            "distance": "19937.1 meter",
-            "time": "1:33:48"
-        },
-        {
-            "name": "up",
-            "distance": "3232.2 meter",
-            "time": "0:15:14"
-        },
-        {
-            "name": "\ud83e\uddcd\u2b07\ufe0f \ud83d\udc54",
-            "distance": "1625.8 meter",
-            "time": "0:04:55"
-        },
-        {
-            "name": "4 x (0.5 @5:30, 0.5 @6:30)",
-            "distance": "6491.4 meter",
-            "time": "0:24:07"
-        },
-        {
-            "name": "down",
-            "distance": "3240.5 meter",
-            "time": "0:15:14"
-        },
-        {
-            "name": "Morning Run",
-            "distance": "11277.6 meter",
-            "time": "0:57:25"
-        },
-        {
-            "name": "easy, strides, core",
-            "distance": "10139.4 meter",
-            "time": "0:50:17"
-        },
-        {
-            "name": "legs haven\u2019t felt like this in ages",
-            "distance": "6827.5 meter",
-            "time": "0:31:32"
-        },
-        {
-            "name": "long + strides",
-            "distance": "19937.1 meter",
-            "time": "1:33:48"
-        },
-        {
-            "name": "up",
-            "distance": "3232.2 meter",
-            "time": "0:15:14"
-        },
-        {
-            "name": "\ud83e\uddcd\u2b07\ufe0f \ud83d\udc54",
-            "distance": "1625.8 meter",
-            "time": "0:04:55"
-        },
-        {
-            "name": "4 x (0.5 @5:30, 0.5 @6:30)",
-            "distance": "6491.4 meter",
-            "time": "0:24:07"
-        },
-        {
-            "name": "down",
-            "distance": "3240.5 meter",
-            "time": "0:15:14"
-        },
-        {
-            "name": "Morning Run",
-            "distance": "11277.6 meter",
-            "time": "0:57:25"
-        },
-        {
-            "name": "easy, strides, core",
-            "distance": "10139.4 meter",
-            "time": "0:50:17"
-        },
-        {
-            "name": "api test 3",
-            "distance": "6437.4 meter",
-            "time": "0:28:00"
-        }
-    ]
-}
+[
+    {
+        "name": "legs haven\u2019t felt like this in ages",
+        "distance": "6827.5 meter",
+        "time": "0:31:32"
+    },
+    {
+        "name": "long + strides",
+        "distance": "19937.1 meter",
+        "time": "1:33:48"
+    },
+    {
+        "name": "up",
+        "distance": "3232.2 meter",
+        "time": "0:15:14"
+    },
+    {
+        "name": "\ud83e\uddcd\u2b07\ufe0f \ud83d\udc54",
+        "distance": "1625.8 meter",
+        "time": "0:04:55"
+    },
+    {
+        "name": "4 x (0.5 @5:30, 0.5 @6:30)",
+        "distance": "6491.4 meter",
+        "time": "0:24:07"
+    },
+    {
+        "name": "down",
+        "distance": "3240.5 meter",
+        "time": "0:15:14"
+    },
+    {
+        "name": "Morning Run",
+        "distance": "11277.6 meter",
+        "time": "0:57:25"
+    },
+    {
+        "name": "easy, strides, core",
+        "distance": "10139.4 meter",
+        "time": "0:50:17"
+    }
+]

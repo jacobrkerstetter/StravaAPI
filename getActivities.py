@@ -25,10 +25,7 @@ logger = None
 #   (b) replace `None` below with the token in quote marks, e.g. access_token = 'token'
 #####################################
 access_token = 'c44a20b8636fab35651ee888c675f63435f9b260'
-activity_data = {
-	'activities' : [
-	]
-}
+activity_data = []
 
 # This list can be expanded
 # @see https://developers.strava.com/docs/uploads/#upload-an-activity
@@ -86,7 +83,7 @@ def create_new_activity(activity):
 		'time' : str(activity.elapsed_time)
 	}
 
-	activity_data['activities'].append(new_activity)
+	activity_data.append(new_activity)
 
 def export_json():
 	with open(os.path.join('StravaWidget', 'StravaWidgetExtension', 'userdata.json'), 'w') as _f:
