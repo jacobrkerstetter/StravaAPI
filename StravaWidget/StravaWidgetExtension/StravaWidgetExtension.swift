@@ -53,14 +53,23 @@ struct StravaWidgetExtensionEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
-            Text("Name:")
-            Text(entry.activityName)
-
-            Text("Distance:")
-            Text(entry.activityDistance)
+        ZStack {
+            VStack {
+                Text(entry.activityName)
+                    .font(.custom(
+                        "Helvetica-Bold",
+                    fixedSize: 16))
+                    .frame(alignment: .center)
+                Spacer()
+                Text(entry.activityDistance)
+                    .font(.custom(
+                        "Helvetica-Bold",
+                    fixedSize: 12))
+                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            }
         }
     }
+        .supportedFamilies([.systemSmall])
 }
 
 struct StravaWidgetExtension: Widget {
@@ -70,11 +79,8 @@ struct StravaWidgetExtension: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
                 StravaWidgetExtensionEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
             } else {
                 StravaWidgetExtensionEntryView(entry: entry)
-                    .padding()
-                    .background()
             }
         }
         .configurationDisplayName("My Widget")
