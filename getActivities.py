@@ -24,7 +24,7 @@ logger = None
 #   (a) set an environment variable `STRAVA_UPLOADER_TOKEN` or;
 #   (b) replace `None` below with the token in quote marks, e.g. access_token = 'token'
 #####################################
-access_token = 'c44a20b8636fab35651ee888c675f63435f9b260'
+access_token = 'a8ed5ad1cf6f5ac189d6a70195d929b73e56b78b'
 activity_data = []
 
 # This list can be expanded
@@ -79,8 +79,8 @@ def get_strava_client():
 def create_new_activity(activity):
 	new_activity = {
 		'name' : activity.name,
-		'distance' : str(activity.distance),
-		'time' : str(activity.elapsed_time)
+		'distance' : str(meters_to_miles(activity.distance)) + ' mi.',
+		'time' : str(format_time(activity.elapsed_time))
 	}
 
 	activity_data.append(new_activity)
@@ -89,8 +89,11 @@ def export_json():
 	with open(os.path.join('StravaWidget', 'StravaWidgetExtension', 'userdata.json'), 'w') as _f:
 		json.dump(activity_data, _f, indent=4)
 
-def miles_to_meters(miles):
-	return float(miles) * 1609.344
+def meters_to_miles(meters):
+	return round(float(meters) * (1/1609.344), 2)
+
+def format_time(time):
+	return 0
 
 def km_to_meters(km):
 	return float(km) * 1000

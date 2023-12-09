@@ -53,23 +53,23 @@ struct StravaWidgetExtensionEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        ZStack {
+        //ZStack {
             VStack {
                 Text(entry.activityName)
                     .font(.custom(
                         "Helvetica-Bold",
                     fixedSize: 16))
-                    .frame(alignment: .center)
-                Spacer()
+                    .frame(maxWidth: 150, alignment: .center)
                 Text(entry.activityDistance)
                     .font(.custom(
                         "Helvetica-Bold",
                     fixedSize: 12))
                     .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
-        }
+        //}
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.brown)
     }
-        .supportedFamilies([.systemSmall])
 }
 
 struct StravaWidgetExtension: Widget {
@@ -83,8 +83,10 @@ struct StravaWidgetExtension: Widget {
                 StravaWidgetExtensionEntryView(entry: entry)
             }
         }
+        .supportedFamilies([.systemSmall, .systemMedium])
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .contentMarginsDisabled()
     }
 }
 
