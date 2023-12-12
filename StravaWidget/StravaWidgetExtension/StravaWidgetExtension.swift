@@ -53,22 +53,60 @@ struct StravaWidgetExtensionEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        //ZStack {
-            VStack {
-                Text(entry.activityName)
+        VStack {
+            HStack {
+                Spacer()
+                Image(.strava)
+                    .resizable()
+                    .frame(width: 25.0, height: 25.0, alignment: .center)
+                    .padding(5)
+                Text("Strava Widget")
                     .font(.custom(
                         "Helvetica-Bold",
-                    fixedSize: 16))
-                    .frame(maxWidth: 150, alignment: .center)
-                Text(entry.activityDistance)
+                        fixedSize: 16))
+                    .frame(alignment: .center)
+                Spacer()
+            }
+            HStack {
+                Image(.shoe)
+                    .resizable()
+                    .frame(width: 18.0, height: 18.0, alignment: .leading)
+                    .padding(5)
+                Text("Activity: " + entry.activityName)
                     .font(.custom(
                         "Helvetica-Bold",
                     fixedSize: 12))
-                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            }
-        //}
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.brown)
+                    .frame(alignment: .leading)
+                Spacer()
+            }.frame(maxWidth: .infinity)
+            HStack {
+                Image(.road)
+                    .resizable()
+                    .frame(width: 18.0, height: 18.0, alignment: .leading)
+                    .padding(5)
+                Text("Distance: " + entry.activityDistance)
+                    .font(.custom(
+                        "Helvetica-Bold",
+                    fixedSize: 12))
+                    .frame(alignment: .leading)
+                Spacer()
+            }.frame(maxWidth: .infinity)
+            HStack {
+                Image(.clock)
+                    .resizable()
+                    .frame(width: 18.0, height: 18.0, alignment: .leading)
+                    .padding(5)
+                Text("Time: " + entry.activityDistance)
+                    .font(.custom(
+                        "Helvetica-Bold",
+                    fixedSize: 12))
+                    .frame(alignment: .leading)
+                Spacer()
+            }.frame(maxWidth: .infinity)
+        }
+        .padding([.bottom], 5)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+        .background(Color.orange)
     }
 }
 
@@ -83,7 +121,6 @@ struct StravaWidgetExtension: Widget {
                 StravaWidgetExtensionEntryView(entry: entry)
             }
         }
-        .supportedFamilies([.systemSmall, .systemMedium])
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
         .contentMarginsDisabled()
