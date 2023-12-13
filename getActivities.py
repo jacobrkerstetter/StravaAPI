@@ -24,7 +24,7 @@ logger = None
 #   (a) set an environment variable `STRAVA_UPLOADER_TOKEN` or;
 #   (b) replace `None` below with the token in quote marks, e.g. access_token = 'token'
 #####################################
-access_token = 'a8ed5ad1cf6f5ac189d6a70195d929b73e56b78b'
+access_token = 'f27c8d4851826d4081f62d42805c47bf1468110e'
 activity_data = []
 
 # This list can be expanded
@@ -80,7 +80,10 @@ def create_new_activity(activity):
 	new_activity = {
 		'name' : activity.name,
 		'distance' : str(meters_to_miles(activity.distance)) + ' mi.',
-		'time' : str(format_time(activity.elapsed_time))
+		'time' : str(format_time(activity.elapsed_time)),
+		'heartrate' : '0',
+		'kudos' : '0',
+		'pace' : '0'
 	}
 
 	activity_data.append(new_activity)
@@ -93,7 +96,11 @@ def meters_to_miles(meters):
 	return round(float(meters) * (1/1609.344), 2)
 
 def format_time(time):
-	return 0
+	strTime = str(time)
+	if strTime[0] == '0':
+		return strTime[2:]
+	
+	return strTime
 
 def km_to_meters(km):
 	return float(km) * 1000
@@ -134,14 +141,14 @@ def main():
 
 	logger.info("Now authenticated for " + athlete.firstname + " " + athlete.lastname)
 
-	timeLimit = datetime.strptime('1 December, 2023 16:00:00', '%d %B, %Y %H:%M:%S')
+	# get latest run activity
 	while True:
-		activities = client.get_activities(after=timeLimit)
+		activities = client.get_activities(limit=10)
 		for activity in activities:
 			if activity.type == 'Run':
 				create_new_activity(activity)
-				#pace = m_per_s_to_min_per_mile(activity.average_speed)
-		
+				break
+			
 		export_json()
 		time.sleep(360)
 
