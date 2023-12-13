@@ -81,7 +81,7 @@ def create_new_activity(activity):
 		'name' : activity.name,
 		'distance' : str(meters_to_miles(activity.distance)) + ' mi.',
 		'time' : str(format_time(activity.elapsed_time)),
-		'heartrate' : '0',
+		'heartrate' : 'not implemented',
 		'kudos' : '0',
 		'pace' : '0'
 	}
