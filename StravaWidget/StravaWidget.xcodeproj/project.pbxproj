@@ -134,6 +134,7 @@
 		163BBFD92B1E389F003008A5 /* StravaWidgetExtension */ = {
 			isa = PBXGroup;
 			children = (
+				1687335A2B2A118100759531 /* Font */,
 				163BBFDA2B1E389F003008A5 /* StravaWidgetExtensionBundle.swift */,
 				163BBFDC2B1E389F003008A5 /* StravaWidgetExtension.swift */,
 				163BBFEA2B1E4147003008A5 /* User.swift */,
@@ -142,6 +143,13 @@
 				163BBFE02B1E38A1003008A5 /* Info.plist */,
 			);
 			path = StravaWidgetExtension;
+			sourceTree = "<group>";
+		};
+		1687335A2B2A118100759531 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

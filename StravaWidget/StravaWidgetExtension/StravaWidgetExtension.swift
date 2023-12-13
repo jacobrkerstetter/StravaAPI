@@ -29,6 +29,12 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
+        
+        UIFont.familyNames.forEach({ name in
+            for font_name in UIFont.fontNames(forFamilyName: name) {
+                print("\n\(font_name)")
+            }
+        })
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
@@ -55,21 +61,15 @@ struct SimpleEntry: TimelineEntry {
 
 struct StravaWidgetExtensionEntryView : View {
     var entry: Provider.Entry
-
+    
     var body: some View {
         VStack {
-            HStack {
-                Image(.strava)
-                    .resizable()
-                    .frame(width: 25.0, height: 25.0, alignment: .topLeading)
-                    .padding([.leading, .top], 5)
-                Text("Strava Widget")
-                    .font(.custom(
-                        "SF-Bold",
-                        fixedSize: 32))
-                    .frame(alignment: .center)
-                    .foregroundColor(.white)
-            }
+            Text("Recent Activity")
+                .font(.custom("Nunito-ExtraBold", fixedSize: 14))
+                .padding([.top, .leading], 10)
+                .padding([.bottom], 5)
+                .frame(alignment: .leading)
+                .foregroundColor(.black)
             Spacer()
             HStack {
                 Image(.shoe)
@@ -110,7 +110,7 @@ struct StravaWidgetExtensionEntryView : View {
         }
         .padding([.bottom], 5)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .background(Color("backgroundColor"))
+        .background(Color.white)
     }
 }
 
