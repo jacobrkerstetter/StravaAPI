@@ -29,12 +29,6 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
-        
-        UIFont.familyNames.forEach({ name in
-            for font_name in UIFont.fontNames(forFamilyName: name) {
-                print("\n\(font_name)")
-            }
-        })
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
@@ -64,53 +58,50 @@ struct StravaWidgetExtensionEntryView : View {
     
     var body: some View {
         VStack {
-            Text("Recent Activity")
-                .font(.custom("Nunito-ExtraBold", fixedSize: 14))
-                .padding([.top, .leading], 10)
-                .padding([.bottom], 5)
-                .frame(alignment: .leading)
-                .foregroundColor(.black)
-            Spacer()
+            HStack {
+                //Image(.strava)
+//                    .resizable()
+//                    .frame(width: 25.0, height: 25.0, alignment: .center)
+//                    .padding(5)
+                Text("Strava Widget")
+                    .font(.system(size: 18, weight: .black))
+                    .foregroundColor(Color(red: 0x00, green: 0x00, blue: 0x00))
+                    .multilineTextAlignment(.center)
+            }.frame(maxWidth: 170, maxHeight: .infinity)
             HStack {
                 Image(.shoe)
                     .resizable()
-                    .frame(width: 18.0, height: 18.0, alignment: .leading)
-                    .padding([.trailing, .leading], 5)
+                    .frame(width: 20.0, height: 20.0, alignment: .leading)
+                    .padding(.leading, 7)
                 Text("Activity: " + entry.activityName)
-                    .font(.custom(
-                        "Helvetica-Bold",
-                    fixedSize: 12))
-                    .frame(alignment: .leading)
+                    .font(.system(size: 12, weight: .bold))
+                    .frame(alignment: .center)
                 Spacer()
-            }.frame(maxWidth: .infinity)
+            }.frame(maxWidth: 170)
             HStack {
                 Image(.road)
                     .resizable()
-                    .frame(width: 18.0, height: 18.0, alignment: .leading)
-                    .padding([.trailing, .leading], 5)
+                    .frame(width: 20.0, height: 20.0, alignment: .leading)
+                    .padding(.leading, 7)
                 Text("Distance: " + entry.activityDistance)
-                    .font(.custom(
-                        "Helvetica-Bold",
-                    fixedSize: 12))
-                    .frame(alignment: .leading)
+                    .font(.system(size: 12, weight: .bold))
+                    .frame(alignment: .center)
                 Spacer()
-            }.frame(maxWidth: .infinity)
+            }.frame(maxWidth: 170)
             HStack {
                 Image(.clock)
                     .resizable()
-                    .frame(width: 18.0, height: 18.0, alignment: .leading)
-                    .padding([.trailing, .leading], 5)
+                    .frame(width: 20.0, height: 20.0, alignment: .leading)
+                    .padding([.bottom, .leading], 7)
                 Text("Time: " + entry.activityTime)
-                    .font(.custom(
-                        "Helvetica-Bold",
-                    fixedSize: 12))
-                    .frame(alignment: .leading)
+                    .font(.system(size: 12, weight: .bold))
+                    .frame(alignment: .center)
                 Spacer()
-            }.frame(maxWidth: .infinity)
+            }.frame(maxWidth: 170)
         }
         .padding([.bottom], 5)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .background(Color.orange)
+        .background(Color("backgroundColor"))
     }
 }
 

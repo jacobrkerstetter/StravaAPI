@@ -1,7 +1,10 @@
 [
     {
-        "name": "down",
-        "distance": "2.01 mi.",
-        "time": "15:09"
+        "name": "easy, strides, core, coffee",
+        "distance": "7.01 mi.",
+        "time": "51:40",
+        "heartrate": "not implemented",
+        "kudos": "0",
+        "pace": "0"
     }
 ]
