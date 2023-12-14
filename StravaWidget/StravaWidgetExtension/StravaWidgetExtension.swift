@@ -110,7 +110,7 @@ struct StravaWidgetExtensionEntryView : View {
         }
         .padding([.bottom], 5)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .background(Color.white)
+        .background(Color.orange)
     }
 }
 

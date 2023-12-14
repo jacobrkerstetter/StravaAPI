@@ -24,7 +24,7 @@ logger = None
 #   (a) set an environment variable `STRAVA_UPLOADER_TOKEN` or;
 #   (b) replace `None` below with the token in quote marks, e.g. access_token = 'token'
 #####################################
-access_token = 'f27c8d4851826d4081f62d42805c47bf1468110e'
+access_token = 'ca8b8b20bc4f826736f0e7708e4f0c92ce88bbf5'
 activity_data = []
 
 # This list can be expanded
