@@ -24,7 +24,7 @@ logger = None
 #   (a) set an environment variable `STRAVA_UPLOADER_TOKEN` or;
 #   (b) replace `None` below with the token in quote marks, e.g. access_token = 'token'
 #####################################
-access_token = '497ad69f2cb0a404c1503239b288a5cb4fa9a799'
+access_token = '8d138c74b4dfc99640846cdd0c313e7fe0808c6f'
 activity_data = []
 
 # This list can be expanded
@@ -80,7 +80,7 @@ def create_new_activity(activity):
 	new_activity = {
 		'name' : activity.name,
 		'distance' : str(meters_to_miles(activity.distance)) + ' mi.',
-		'time' : str(format_time(activity.elapsed_time))
+		'time' : str(format_time(activity.moving_time))
 	}
 
 	activity_data.append(new_activity)
