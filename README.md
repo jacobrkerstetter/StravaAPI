@@ -2,7 +2,7 @@
 GitHub: https://github.com/jacobrkerstetter/StravaAPI 
 Presentation/Demonstration: https://youtu.be/XuOWSsBUH-0 
 
-Design Overview:
+## Design Overview:
 The goal of my project is to combine a hobby I am very passionate about, running, with my future career in software engineering. Thus, my Strava widget was born. This final product did not come without many revisions and iterations, but in the end created a jumping-off point for a very useful iOS widget as well as taught me valuable skills I was interested in learning. 
 
 Strava is a fitness app that combines statistical tracking features with social media elements. For example, a user can post their runs, bike rides, and even racquetball sessions and view paces, durations, distance covered, and heart rate data. Additionally, users who follow them can give “kudos,” which are the equivalent of a “like” on other social media platforms. Strava has a well-built API to access data from a user’s account as long as the account has authenticated the API access. My initial goal was to allow a Strava user to view their most recent activity and key data on an LED matrix that they can display in their home. This eventually iterated into visualizing the activity on the home screen of an iPhone. 
@@ -21,7 +21,7 @@ Figure 2. Apple iOS Widget Example
 
 The justification for this project being applicable for a 6-week development period comes from a combination of my previous knowledge and work with some of the technologies I used in conjunction with the amount of new technology I needed to learn. For example, I am already an intermediate to advanced Python programmer and have used Python many times to interface with 3rd-party software via API’s. Contrasting this was my inexperience with hardware, specifically the LED matrix. Once the LED matrix was tested and failed, the contingency plan that was put in place was activated and I pivoted to another new technology: iOS app/widget design. This required me to learn Swift and SwiftUI, two languages I have minimal experience with. Although this felt daunting in a now shortened development period, I saw it as a great learning opportunity to boost my resume by becoming a beginner Swift developer as well as deciding if frontend software is a path I would be interested in pursuing in the future. 
 
-Preliminary Design Verification:
+## Preliminary Design Verification:
 To begin my design verification, I started with the technology I was most familiar with: Python and API’s. For a proof of concept, I wanted to pull data from my Strava account using the Strava API. Initially, I attempted to use Strava’s documentation for authenticating and accessing my account, but this proved difficult, as I was constantly losing privileges. After doing more research, I found that another developer had created and published a free Python module wrapping the Strava API with easier interfacing called “stravalib” (https://github.com/stravalib/stravalib).
 
 
@@ -52,7 +52,7 @@ The hardware that I needed to validate was the LED matrix as well as the SparkFu
 
 The original software approach was to use a module in Python called PyQt which can be used to create Python GUI’s and provide “signal” objects to update them live. This was a module that I had used in a previous class, and I was interested in learning a new skill in this project. After speaking to TA Joe, we agreed Swift and SwiftUI for iOS design was a relevant skill to learn as my career interests are mostly software-based. Designing an app would be redundant in this case as Strava is already a very well-made app. A widget is provided by Strava, however, it does not offer very much functionality – it merely displays your weekly mileage and mileage per day. My widget sought to provide more of an activity-focused insight to a user. Overall, this plan would still allow me to learn a relevant skill, although software-focused, as well as practice my software development skills.
 
-Design Implementation:
+## Design Implementation:
 I will first describe the block diagram of my original design with hardware and software integrated together. The initial idea was to create my Python client which can post GET requests to the Strava API, which would then in turn query their database. The database then responds with the requested data back to the API. Then the API returns the data to the Python client as a JSON. In my case, the stravalib module converts the API data to custom object formats which are more simple to use.
 
 On the hardware side, the Python client connects to the ESP32 Thing via WiFi, where the ESP device is running a local server. The ESP receives the data from the client and is able to translate it to the LED matrix pins using the PxMatrix.h library. This design ultimately ended up failing, but the block diagram can be seen below.
@@ -69,7 +69,7 @@ The subcomponents of this design are the Python client, the Swift class, the wid
 
 
 
-Design Testing:
+## Design Testing:
 My test plan for my prototypes was to utilize what I have previously discovered and developed in the design verification stage as a starting point. Then, each iteration I do to my design can be done by changing one variable at a time, verifying it has the desired effect, and committing the new working code to GitHub. 
 
 The first tool I used to test my prototypes was the .JSON file. This file served as a textual representation of the data I am pulling from Strava’s API and the way that I parse it. For example, one piece of functionality that I added was formatting of time strings for the duration of the activity. By default, if the activity is under an hour, Strava outputs the time as “0:xx:xx” in the format “hrs:mins:secs.” I chose to only display the minutes and seconds if the duration was less than an hour, so I removed the first two characters in this case and did a test output to the .JSON. This can be seen in Figure 6 above.
@@ -91,7 +91,7 @@ Figure 11. Second Widget Prototype
 
 Figure 12. Third Widget Prototype
 
-Summary, Conclusions, and Future Work:
+## Summary, Conclusions, and Future Work:
 All in all, creating an iOS widget for a topic I am very passionate about was a great learning experience as well as a resume bullet point. I was able to learn the basics of Swift, SwiftUI, and JSON file processing while practicing my neglected Python and API skills. 
 
 Some conclusions I came to while completing the project were that if I had a longer development cycle, I would have likely been able to get the hardware to work. This could be placed in the category of future work for the project. 
@@ -99,7 +99,8 @@ Some conclusions I came to while completing the project were that if I had a lon
 One element of future work that I identified that I am highly interested in is deploying my Python code to run via an AWS or Google Cloud service. This would free up my personal resources and refresh the widget automatically. Although this is seemingly simple, it would require the posting of a finalized version of my app with generalized functionality to allow it to not only run my Strava data but be individualized to any user that wants to download my widget. This would be a good exercise is app deployment but is beyond the scope of this project’s timeline.
 
 Additional trivial future work includes UI improvements. As this is my first time using SwiftUI and making a widget, my design skills were lacking. In the future, I would be interested in collaborating with an advanced SwiftUI designer to boost the aesthetics of the widget. This also includes a more seamless integration with iOS with typography, shapes, and color themes. Although there is future work to be done on the prototype to polish it into a production-level widget, I am pleased with the output I achieved, and I hope to work to develop more running-related products in the future.
-Appendix A: Authenticating Strava for Your Account
+
+## Appendix A: Authenticating Strava for Your Account
 Clone the repository into the desired drive with the following command:
 
 
